@@ -91,7 +91,7 @@ public class PuzzleView extends View {
 	}
 
 	private void setNumAtSelected(int i) {
-		game.setNumAt(selX, selY, i);
+		game.setNumAt(i, selX, selY);
 
 	}
 
