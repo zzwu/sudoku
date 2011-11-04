@@ -1,5 +1,8 @@
 package com.got.sudoku;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +62,39 @@ public class Game extends Activity {
 	
 	public void setNumAt(int num, int x, int y) {
 		puzzle[y * 9 + x] = num;
+	}
+
+	public Set<Integer> getUnUsedTiles(int x, int y) {
+		Set<Integer> lefts = new HashSet<Integer>();
+		lefts.add(new Integer(1));
+		lefts.add(new Integer(2));
+		lefts.add(new Integer(3));
+		lefts.add(new Integer(4));
+		lefts.add(new Integer(5));
+		lefts.add(new Integer(6));
+		lefts.add(new Integer(7));
+		lefts.add(new Integer(8));
+		lefts.add(new Integer(9));
+		//横向去除
+		for (int i = 0; i < 9; i++) {
+			if (i == x) continue;
+			lefts.remove(puzzle[i + y * 9]);
+		}
+		//竖向去除
+		for (int i =0; i < 9; i++) {
+			if (i == y) continue;
+			lefts.remove(puzzle[x + i * 9]);
+		}
+		//宫内去除
+		int bigX = (int)(x/3);
+		int bigY = (int)(y/3);
+		for (int i = 3 * bigX; i < 3 * (bigX + 1); i++ ) {
+			for (int j = 3 * bigY; j < 3 * (bigY + 1); j++) {
+				if (i == x && j == y) continue;
+				lefts.remove(puzzle[i + j * 9]);
+			}
+		}
+		return lefts;
 	}
 
 }
