@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 
 public class PuzzleView extends View {
 
@@ -43,16 +44,16 @@ public class PuzzleView extends View {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_DPAD_UP:
-			selected(selX, selY - 1);
+			selectedTile(selX, selY - 1);
 			break;
 		case KeyEvent.KEYCODE_DPAD_DOWN:
-			selected(selX, selY + 1);
+			selectedTile(selX, selY + 1);
 			break;
 		case KeyEvent.KEYCODE_DPAD_LEFT:
-			selected(selX - 1, selY);
+			selectedTile(selX - 1, selY);
 			break;
 		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			selected(selX + 1, selY);
+			selectedTile(selX + 1, selY);
 			break;
 		case KeyEvent.KEYCODE_0:
 			setNumAtSelected(0);
@@ -90,12 +91,18 @@ public class PuzzleView extends View {
 		return true;
 	}
 
-	private void setNumAtSelected(int i) {
-		game.setTitle(i, selX, selY);
-		invalidate();
+	private void setNumAtSelected(int tile) {
+		if (game.getUnUsedTiles(selX, selY).contains(new Integer(tile))) {
+			game.setTitle(tile, selX, selY);
+			invalidate();
+		} else {
+			Log.d(TAG, "setSelectedTile: invalid: " + tile); 
+			startAnimation(AnimationUtils.loadAnimation(game, R.anim.shake));
+		}
+		
 	}
 
-	private void selected(int x, int y) {
+	private void selectedTile(int x, int y) {
 		invalidate(selRect);
 		selX = Math.min(Math.max(x, 0), 8);
 		selY = Math.min(Math.max(y, 0), 8);
@@ -206,7 +213,7 @@ public class PuzzleView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);
-		selected((int) (event.getX() / width), (int) (event.getY() / height));
+		selectedTile((int) (event.getX() / width), (int) (event.getY() / height));
 		Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
 		return true;
 	}
