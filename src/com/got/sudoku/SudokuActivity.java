@@ -42,7 +42,6 @@ public class SudokuActivity extends Activity implements OnClickListener {
 			default:
 				//do nothing
 		}
-		
 	}
 
 	private void openNewGameDialog() {

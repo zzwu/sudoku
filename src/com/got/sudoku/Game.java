@@ -56,11 +56,11 @@ public class Game extends Activity {
 		return result;
 	}
 	
-	public int getNumAt(int x, int y) {
+	public int getTitle(int x, int y) {
 		return puzzle[y * 9 + x];
 	}
 	
-	public void setNumAt(int num, int x, int y) {
+	public void setTitle(int num, int x, int y) {
 		puzzle[y * 9 + x] = num;
 	}
 

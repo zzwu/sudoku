@@ -91,8 +91,8 @@ public class PuzzleView extends View {
 	}
 
 	private void setNumAtSelected(int i) {
-		game.setNumAt(i, selX, selY);
-
+		game.setTitle(i, selX, selY);
+		invalidate();
 	}
 
 	private void selected(int x, int y) {
@@ -174,7 +174,7 @@ public class PuzzleView extends View {
 		float y = height / 2 - (fm.ascent + fm.descent) / 2;
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				canvas.drawText("" + game.getNumAt(i, j), i * width + x, j
+				canvas.drawText("" + game.getTitle(i, j), i * width + x, j
 						* height + y, foreground);
 			}
 		}
@@ -191,7 +191,7 @@ public class PuzzleView extends View {
 		Rect r = new Rect();
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
-				if (game.getNumAt(i, j) != 0) continue; 
+				if (game.getTitle(i, j) != 0) continue; 
 				int movesleft = game.getUnUsedTiles(i, j).size();
 				if (movesleft < c.length) {
 					getRect(i, j, r);
