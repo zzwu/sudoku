@@ -1,11 +1,18 @@
 package com.got.sudoku;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.widget.Toast;
 
 public class Game extends Activity {
 
@@ -19,6 +26,8 @@ public class Game extends Activity {
 	private final String hardPuzzle = "009000000080605020501078000" + "000000700706040102004000000" + "000720903090301080000000600" ;
 	
 	public int[] puzzle = new int[9 * 9];
+	
+	private PuzzleView view;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -29,7 +38,7 @@ public class Game extends Activity {
 		int difficulty = getIntent().getIntExtra(KEY_DIFFICULTY, DIFFICULTY_EASY);
 		puzzle = getPuzzleByDifficulty(difficulty);
 		
-		PuzzleView  view = new PuzzleView(this);
+		view = new PuzzleView(this);
 		setContentView(view);
 		view.requestFocus();
 		
@@ -64,7 +73,7 @@ public class Game extends Activity {
 		puzzle[y * 9 + x] = num;
 	}
 
-	public Set<Integer> getUnUsedTiles(int x, int y) {
+	public List<Integer> getUnUsedTiles(int x, int y) {
 		Set<Integer> lefts = new HashSet<Integer>();
 		lefts.add(new Integer(1));
 		lefts.add(new Integer(2));
@@ -94,7 +103,22 @@ public class Game extends Activity {
 				lefts.remove(puzzle[i + j * 9]);
 			}
 		}
-		return lefts;
+		
+		List<Integer> list = new ArrayList<Integer>(lefts);
+		Collections.sort(list);
+		return list;
+	}
+	
+	public void showKeypadOrError(int x, int y) {
+		List<Integer> list = getUnUsedTiles(x, y);
+		if (0 == list.size()) {
+			Toast toast = Toast.makeText(this, R.string.no_moves_label, Toast.LENGTH_SHORT);
+			toast.setGravity(Gravity.CENTER, 0, 0);
+			toast.show();
+		} else {
+			Dialog v = new KeyPad(this, list, view); 
+			v.show();
+		}
 	}
 
 }

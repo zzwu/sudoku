@@ -56,34 +56,34 @@ public class PuzzleView extends View {
 			selectedTile(selX + 1, selY);
 			break;
 		case KeyEvent.KEYCODE_0:
-			setNumAtSelected(0);
+			setSelectedTitle(0);
 			break;
 		case KeyEvent.KEYCODE_1:
-			setNumAtSelected(1);
+			setSelectedTitle(1);
 			break;
 		case KeyEvent.KEYCODE_2:
-			setNumAtSelected(2);
+			setSelectedTitle(2);
 			break;
 		case KeyEvent.KEYCODE_3:
-			setNumAtSelected(3);
+			setSelectedTitle(3);
 			break;
 		case KeyEvent.KEYCODE_4:
-			setNumAtSelected(4);
+			setSelectedTitle(4);
 			break;
 		case KeyEvent.KEYCODE_5:
-			setNumAtSelected(5);
+			setSelectedTitle(5);
 			break;
 		case KeyEvent.KEYCODE_6:
-			setNumAtSelected(6);
+			setSelectedTitle(6);
 			break;
 		case KeyEvent.KEYCODE_7:
-			setNumAtSelected(7);
+			setSelectedTitle(7);
 			break;
 		case KeyEvent.KEYCODE_8:
-			setNumAtSelected(8);
+			setSelectedTitle(8);
 			break;
 		case KeyEvent.KEYCODE_9:
-			setNumAtSelected(9);
+			setSelectedTitle(9);
 			break;
 		default:
 			super.onKeyDown(keyCode, event);
@@ -91,7 +91,7 @@ public class PuzzleView extends View {
 		return true;
 	}
 
-	private void setNumAtSelected(int tile) {
+	public void setSelectedTitle(int tile) {
 		if (game.getUnUsedTiles(selX, selY).contains(new Integer(tile))) {
 			game.setTitle(tile, selX, selY);
 			invalidate();
@@ -215,6 +215,8 @@ public class PuzzleView extends View {
 		super.onTouchEvent(event);
 		selectedTile((int) (event.getX() / width), (int) (event.getY() / height));
 		Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
+		//showKeypadOrError
+		game.showKeypadOrError(selX, selY);
 		return true;
 	}
 

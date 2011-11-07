@@ -34,6 +34,10 @@
         <activity 
             android:name=".Game"
             android:label="@string/game_title"></activity>
+        
+        <activity 
+            android:name=".KeyPad"
+            android:label="@string/keypad_title"></activity>
     </application>
 
 </manifest>

@@ -21,5 +21,6 @@
 	<string name="difficulty_medium_label">Medium</string>
 	<string name="difficulty_hard_label">Hard</string>
 	<string name="game_title">Game</string>
+	<string name="keypad_title">Keypad</string>
 	<string name="no_moves_label">No moves</string> <string name="keypad_title">Keypad</string>
 </resources>
