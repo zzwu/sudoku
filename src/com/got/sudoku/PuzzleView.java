@@ -191,19 +191,22 @@ public class PuzzleView extends View {
 		selected.setColor(getResources().getColor(R.color.puzzle_selected));
 		canvas.drawRect(selRect, selected);
 
-		Paint hint = new Paint();
-		int c[] = { getResources().getColor(R.color.puzzle_hint_0),
-				getResources().getColor(R.color.puzzle_hint_1),
-				getResources().getColor(R.color.puzzle_hint_2), };
-		Rect r = new Rect();
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (game.getTitle(i, j) != 0) continue; 
-				int movesleft = game.getUnUsedTiles(i, j).size();
-				if (movesleft < c.length) {
-					getRect(i, j, r);
-					hint.setColor(c[Math.min(movesleft - 1, 2)]);
-					canvas.drawRect(r, hint);
+		if (Prefs.getHints(getContext())) {			
+			//draw hints
+			Paint hint = new Paint();
+			int c[] = { getResources().getColor(R.color.puzzle_hint_0),
+					getResources().getColor(R.color.puzzle_hint_1),
+					getResources().getColor(R.color.puzzle_hint_2), };
+			Rect r = new Rect();
+			for (int i = 0; i < 9; i++) {
+				for (int j = 0; j < 9; j++) {
+					if (game.getTitle(i, j) != 0) continue; 
+					int movesleft = game.getUnUsedTiles(i, j).size();
+					if (movesleft < c.length) {
+						getRect(i, j, r);
+						hint.setColor(c[Math.min(movesleft - 1, 2)]);
+						canvas.drawRect(r, hint);
+					}
 				}
 			}
 		}

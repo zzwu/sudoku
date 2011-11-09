@@ -119,4 +119,16 @@ public class Game extends Activity {
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Music.paly(this, R.raw.one);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Music.stop(this);
+	}
+
 }

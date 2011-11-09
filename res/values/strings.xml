@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="main_title">Audoku</string>
-    <string name="app_name">Audoku</string>
+    <string name="main_title">Sudoku</string>
+    <string name="app_name">Sudoku</string>
     <string name="new_game_label">New Game</string>
     <string name="continue_label">Continue</string>
     <string name="about_label">About</string>
@@ -14,7 +14,7 @@
 	<string name="music_title">Music</string>
 	<string name="music_summary">play music in game</string>
 	<string name="hints_title">Hints</string>
-	<string name="hints_summary">shou hints in game</string>
+	<string name="hints_summary">show hints in game</string>
 	<string name="prefs_label">Sudoku Settings</string>
 	<string name="difficulty_title">Difficulty</string>
 	<string name="difficulty_easy_label">Easy</string>
@@ -22,5 +22,5 @@
 	<string name="difficulty_hard_label">Hard</string>
 	<string name="game_title">Game</string>
 	<string name="keypad_title">Keypad</string>
-	<string name="no_moves_label">No moves</string> <string name="keypad_title">Keypad</string>
+	<string name="no_moves_label">No moves</string>
 </resources>

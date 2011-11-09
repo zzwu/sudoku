@@ -85,6 +85,18 @@ public class SudokuActivity extends Activity implements OnClickListener {
 		return false;
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Music.paly(this, R.raw.sy);	
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		Music.stop(this);
+	}
+
 	
 	
 	
