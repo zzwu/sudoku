@@ -17,12 +17,16 @@ public class Game extends Activity {
 
 	private static final String TAG = "Sudoku";
 	public static final String KEY_DIFFICULTY = "org.example.sudoku.difficulty";
+	public static final int DIFFICULTY_FREE = -1;
 	public static final int DIFFICULTY_EASY = 0;
 	public static final int DIFFICULTY_MEDIUM = 1;
 	public static final int DIFFICULTY_HARD = 2;
 	private final String easyPuzzle = "360000000004230800000004200" + "070460003820000014500013020" + "001900000007048300000000045" ;
 	private final String mediumPuzzle = "650000070000506000014000005" + "007009000002314700000700800" + "500000630000201000030000097" ;
 	private final String hardPuzzle = "009000000080605020501078000" + "000000700706040102004000000" + "000720903090301080000000600" ;
+	
+	private static final String PREF_PUZZLE = "puzzle" ;
+	protected static final int DIFFICULTY_CONTINUE = -1;
 	
 	public int[] puzzle = new int[9 * 9];
 	
@@ -51,6 +55,8 @@ public class Game extends Activity {
 			return stringToInts(mediumPuzzle);
 		case DIFFICULTY_HARD:
 			return stringToInts(hardPuzzle);
+		case DIFFICULTY_FREE:
+			return stringToInts(getPreferences(MODE_PRIVATE).getString(PREF_PUZZLE, easyPuzzle));
 			default:
 				return stringToInts(easyPuzzle);
 		}
@@ -122,13 +128,24 @@ public class Game extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		Music.paly(this, R.raw.one);
+		//Music.paly(this, R.raw.one);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 		Music.stop(this);
+		//save game status
+		getPreferences(MODE_PRIVATE).edit().putString(PREF_PUZZLE, getPuzzleString(puzzle)).commit();
+	}
+
+	private String getPuzzleString(int[] puzzle) {
+		if (puzzle == null) return "";
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < puzzle.length; i++) {
+			sb.append(puzzle[i]);
+		}
+		return sb.toString();
 	}
 
 }

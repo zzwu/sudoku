@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Paint.FontMetrics;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -19,6 +21,9 @@ public class PuzzleView extends View {
 	private float height;
 	private int selX;
 	private int selY;
+	private static final String SELX = "selX";
+	private static final String SELY = "selY";
+	private static final String VIEW_STATE = "viewState";
 	private Rect selRect = new Rect();
 	private static final String TAG = "PuzzleView";
 
@@ -99,7 +104,6 @@ public class PuzzleView extends View {
 			Log.d(TAG, "setSelectedTile: invalid: " + tile); 
 			startAnimation(AnimationUtils.loadAnimation(game, R.anim.shake));
 		}
-		
 	}
 
 	private void selectedTile(int x, int y) {
@@ -219,6 +223,24 @@ public class PuzzleView extends View {
 		Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
 		game.showKeypadOrError(selX, selY);
 		return true;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Parcelable state) {
+		super.onRestoreInstanceState(state);
+		Bundle bundle = (Bundle) state; 
+		selectedTile(bundle.getInt(SELX), bundle.getInt(SELY)); 
+		super.onRestoreInstanceState(bundle.getParcelable(VIEW_STATE));
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable p = super.onSaveInstanceState();
+		Bundle b = new Bundle();
+		b.putInt(SELX, selX);
+		b.putInt(SELY, selY);
+		b.putParcelable(VIEW_STATE, p);
+		return b;
 	}
 
 }

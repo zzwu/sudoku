@@ -39,6 +39,9 @@ public class SudokuActivity extends Activity implements OnClickListener {
 		case R.id.exit_button:
 			finish();
 			break;
+		case R.id.continue_button:
+			startGame(Game.DIFFICULTY_FREE);
+			break;
 			default:
 				//do nothing
 		}
@@ -88,7 +91,7 @@ public class SudokuActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Music.paly(this, R.raw.sy);	
+		//Music.paly(this, R.raw.sy);	
 	}
 
 	@Override
