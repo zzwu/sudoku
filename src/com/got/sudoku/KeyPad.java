@@ -13,12 +13,12 @@ public class KeyPad extends Dialog {
 	protected static final String TAG = "Sudoku";
 	private final View keys[] = new View[9];
 	private View keypad;
-	private final List<Integer> useds;
+	private final List<Integer> unUseds;
 	private final PuzzleView puzzleView;
 
-	public KeyPad(Context context, List<Integer> useds, PuzzleView puzzleView) {
+	public KeyPad(Context context, List<Integer> unUseds, PuzzleView puzzleView) {
 		super(context);
-		this.useds = useds;
+		this.unUseds = unUseds;
 		this.puzzleView = puzzleView;
 	}
 
@@ -28,9 +28,12 @@ public class KeyPad extends Dialog {
 		setTitle(R.string.keypad_title);
 		setContentView(R.layout.keypad);
 		findViews();
-		for (int element : useds) {
+		for (int i = 0; i < 9; i++) {
+			keys[i].setVisibility(View.INVISIBLE);
+		}
+		for (int element : unUseds) {
 			if (element != 0)
-				keys[element - 1].setVisibility(View.INVISIBLE);
+				keys[element - 1].setVisibility(View.VISIBLE);
 		}
 		setListeners();
 
@@ -56,7 +59,6 @@ public class KeyPad extends Dialog {
 	private void returnResult(int t) {
 		puzzleView.setSelectedTitle(t);
 		dismiss();
-
 	}
 
 	@Override
@@ -106,6 +108,7 @@ public class KeyPad extends Dialog {
 	}
 
 	private void findViews() {
+		keypad = findViewById(R.id.keypad);
 		keys[0] = findViewById(R.id.button1);
 		keys[1] = findViewById(R.id.button2);
 		keys[2] = findViewById(R.id.button3);
@@ -118,7 +121,7 @@ public class KeyPad extends Dialog {
 	}
 
 	private boolean isValid(int tile) {
-		for (int t : useds) {
+		for (int t : unUseds) {
 			if (tile == t)
 				return false;
 		}

@@ -1,7 +1,6 @@
 package com.got.sudoku;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -103,7 +102,6 @@ public class Game extends Activity {
 				lefts.remove(puzzle[i + j * 9]);
 			}
 		}
-		
 		List<Integer> list = new ArrayList<Integer>(lefts);
 		Collections.sort(list);
 		return list;
@@ -116,7 +114,7 @@ public class Game extends Activity {
 			toast.setGravity(Gravity.CENTER, 0, 0);
 			toast.show();
 		} else {
-			Dialog v = new KeyPad(this, list, view); 
+ 			Dialog v = new KeyPad(this, list, view); 
 			v.show();
 		}
 	}

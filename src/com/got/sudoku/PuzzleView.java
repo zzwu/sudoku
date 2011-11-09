@@ -92,7 +92,7 @@ public class PuzzleView extends View {
 	}
 
 	public void setSelectedTitle(int tile) {
-		if (game.getUnUsedTiles(selX, selY).contains(new Integer(tile))) {
+		if (game.getUnUsedTiles(selX, selY).contains(new Integer(tile)) || tile == 0) {
 			game.setTitle(tile, selX, selY);
 			invalidate();
 		} else {
@@ -207,7 +207,6 @@ public class PuzzleView extends View {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -215,7 +214,6 @@ public class PuzzleView extends View {
 		super.onTouchEvent(event);
 		selectedTile((int) (event.getX() / width), (int) (event.getY() / height));
 		Log.d(TAG, "onTouchEvent: x " + selX + ", y " + selY);
-		//showKeypadOrError
 		game.showKeypadOrError(selX, selY);
 		return true;
 	}
